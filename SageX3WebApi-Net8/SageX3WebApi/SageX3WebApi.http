@@ -1,0 +1,101 @@
+@SageX3WebApi_HostAddress = http://localhost:5080
+
+### Health check
+GET {{SageX3WebApi_HostAddress}}/health
+
+### Get OK-To-Pay invoices (POST with body)
+POST {{SageX3WebApi_HostAddress}}/api/invoices/ok2pay
+Content-Type: application/json
+
+{
+  "company": "NA10",
+  "site": "NA011",
+  "supplierCode": "US001",
+  "dueDateFrom": "2026-01-01",
+  "dueDateTo": "2026-12-31"
+}
+
+### Get OK-To-Pay invoices (GET with query params)
+GET {{SageX3WebApi_HostAddress}}/api/invoices/ok2pay?company=NA10&supplierCode=US001
+
+### Insert invoice payment
+POST {{SageX3WebApi_HostAddress}}/api/invoices/payments
+Content-Type: application/json
+
+{
+  "company": "NA10",
+  "site": "NA011",
+  "paymentEntryType": "PAYO",
+  "bankCode": "USBANK",
+  "paymentDate": "2026-04-16",
+  "supplierCode": "US001",
+  "currency": "USD",
+  "amount": 1500.00,
+  "reference": "CHK-10045",
+  "lines": [
+    { "invoiceNumber": "PI1-000123", "amountPaid": 1000.00 },
+    { "invoiceNumber": "PI1-000124", "amountPaid": 500.00 }
+  ]
+}
+
+### Get currency lookup values
+GET {{SageX3WebApi_HostAddress}}/api/lookups/CUR?languageCode=ENG
+
+### Get payment-term lookup values
+GET {{SageX3WebApi_HostAddress}}/api/lookups/PTE
+
+### Insert remit-to address
+POST {{SageX3WebApi_HostAddress}}/api/remitto
+Content-Type: application/json
+
+{
+  "supplierCode": "US001",
+  "addressCode": "REMIT01",
+  "description": "Remit-to address",
+  "line1": "PO Box 123",
+  "city": "Austin",
+  "state": "TX",
+  "postalCode": "78701",
+  "country": "US",
+  "isDefaultPayAddress": true,
+  "bankIdCode": "BID01",
+  "accountNumber": "1234567890",
+  "routingNumber": "021000021",
+  "currency": "USD"
+}
+
+### Get supplier
+GET {{SageX3WebApi_HostAddress}}/api/suppliers/US001
+
+### Get supplier SIM (extended view)
+GET {{SageX3WebApi_HostAddress}}/api/suppliers/US001/sim?includeInvoices=true&includePayments=true
+
+### Insert supplier
+POST {{SageX3WebApi_HostAddress}}/api/suppliers
+Content-Type: application/json
+
+{
+  "name": "Acme Corp",
+  "shortName": "ACME",
+  "category": "VEN",
+  "currency": "USD",
+  "language": "ENG",
+  "taxId": "12-3456789",
+  "paymentTerm": "NET30",
+  "accountingCode": "VEN",
+  "address": {
+    "line1": "100 Main St",
+    "city": "Austin",
+    "state": "TX",
+    "postalCode": "78701",
+    "country": "US",
+    "phone": "512-555-1234",
+    "email": "ap@acme.com"
+  },
+  "contacts": [
+    { "firstName": "Jane", "lastName": "Doe", "email": "jane@acme.com" }
+  ],
+  "bankIds": [
+    { "bankIdCode": "BID01", "accountNumber": "1234567890", "routingNumber": "021000021", "currency": "USD" }
+  ]
+}

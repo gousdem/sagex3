@@ -1,0 +1,34 @@
+## Build artifacts
+bin/
+obj/
+out/
+*.user
+*.suo
+*.userosscache
+.vs/
+
+## NuGet
+*.nupkg
+*.snupkg
+
+## Rider / ReSharper
+.idea/
+_ReSharper*/
+*.DotSettings.user
+
+## VS Code
+.vscode/*
+!.vscode/launch.json
+!.vscode/tasks.json
+!.vscode/settings.json
+!.vscode/extensions.json
+
+## OS
+.DS_Store
+Thumbs.db
+
+## Secrets
+appsettings.*.local.json
+appsettings.*.Local.json
+*.pfx
+.env
